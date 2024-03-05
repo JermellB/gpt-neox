@@ -17,7 +17,6 @@
 
 """General utilities."""
 import os
-import sys
 import re
 import time
 import socket
@@ -210,7 +209,6 @@ def ddb(rank=0):
         from pdb import Pdb
 
         pdb = Pdb(skip=["torch.distributed.*"])
-        pdb.set_trace(sys._getframe().f_back)
     torch.distributed.barrier()
 
 

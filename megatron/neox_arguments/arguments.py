@@ -649,10 +649,7 @@ class NeoXArgs(*BASE_CLASSES):
             self.update_value("global_num_gpus", global_num_gpus)
 
         logging.info(
-            self.__class__.__name__
-            + ".calculate_derived() "
-            + f"Total number of GPUs determined to be: {global_num_gpus}"
-        )
+            "%s.calculate_derived() %s", self.__class__.__name__, f"Total number of GPUs determined to be: {global_num_gpus}")
 
         # get world size in the model/pipe parallel case, the actual `world size` deepspeed uses is the size of the
         # data-parallel group, or (num_gpus / mp_size) / pp_size
@@ -1001,17 +998,11 @@ class NeoXArgs(*BASE_CLASSES):
                         if actual_value.lower() in lowercase_accepted_values:
                             continue
                     logging.error(
-                        self.__class__.__name__
-                        + ".validate_types() "
-                        + f"{field_name}: '{actual_value}' Not in accepted values: '{accepted_values}'"
-                    )
+                        "%s.validate_types() %s", self.__class__.__name__, f"{field_name}: '{actual_value}' Not in accepted values: '{accepted_values}'")
                     return False
 
                 logging.error(
-                    self.__class__.__name__
-                    + ".validate_types() "
-                    + f"{field_name}: '{actual_type}' instead of '{field_def.type}'"
-                )
+                    "%s.validate_types() %s", self.__class__.__name__, f"{field_name}: '{actual_type}' instead of '{field_def.type}'")
                 return False
 
         # validate deepspeed dicts
@@ -1023,32 +1014,20 @@ class NeoXArgs(*BASE_CLASSES):
                 if "type" in value:
                     if not isinstance(value["type"], str):
                         logging.error(
-                            self.__class__.__name__
-                            + ".validate_types() "
-                            + f"{field_name}: key 'type' must be a string"
-                        )
+                            "%s.validate_types() %s", self.__class__.__name__, f"{field_name}: key 'type' must be a string")
                         return False
                 else:
                     logging.error(
-                        self.__class__.__name__
-                        + ".validate_types() "
-                        + f"{field_name}: must contain key 'type'"
-                    )
+                        "%s.validate_types() %s", self.__class__.__name__, f"{field_name}: must contain key 'type'")
                     return False
                 if "params" in value:
                     if not isinstance(value["params"], dict):
                         logging.error(
-                            self.__class__.__name__
-                            + ".validate_types() "
-                            + f"{field_name}: key 'params' must be a dict"
-                        )
+                            "%s.validate_types() %s", self.__class__.__name__, f"{field_name}: key 'params' must be a dict")
                         return False
                 else:
                     logging.error(
-                        self.__class__.__name__
-                        + ".validate_types() "
-                        + f"{field_name}: must contain key 'params'"
-                    )
+                        "%s.validate_types() %s", self.__class__.__name__, f"{field_name}: must contain key 'params'")
                     return False
 
         for field_name in ["fp16", "amp", "flops_profiler"]:

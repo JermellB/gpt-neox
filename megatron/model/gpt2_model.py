@@ -145,7 +145,7 @@ class GPT2ModelPipe(PipelineModule, torch.nn.Module):
             self.specs[idx:idx] = layers
         elif isinstance(layers, list):
             assert all(
-                [hasattr(l, "__call__") for l in layers]
+                [callable(l) for l in layers]
             ), "all items in `layers` must be Callables"
             self.specs[idx:idx] = layers
         else:
@@ -350,7 +350,7 @@ class GPT2ModelPipe(PipelineModule, torch.nn.Module):
                     tied_layers[spec.key].append(module)
             elif isinstance(spec, LayerSpec):
                 layers.append(spec.build(log=False))
-            elif hasattr(spec, "__call__"):
+            elif callable(spec):
                 # check that it's a callable function
                 layers.append(Lambda(spec))
             else:

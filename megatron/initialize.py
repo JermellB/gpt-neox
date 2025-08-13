@@ -16,8 +16,6 @@
 # limitations under the License.
 
 """Megatron initialization."""
-
-import random
 import os
 
 import numpy as np
@@ -31,6 +29,7 @@ import deepspeed
 import inspect
 
 from deepspeed.utils import distributed
+import secrets
 
 
 def initialize_megatron(neox_args, allow_no_cuda=False):
@@ -216,7 +215,7 @@ def _init_autoresume(neox_args):
 def _set_random_seed(seed):
     """Set random seed for reproducibility."""
     if seed is not None and seed > 0:
-        random.seed(seed)
+        secrets.SystemRandom().seed(seed)
         np.random.seed(seed)
         torch.manual_seed(seed)
         if torch.cuda.device_count() > 0:
